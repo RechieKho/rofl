@@ -38,22 +38,22 @@ If roughly translated to JSON, it would be like this:
 ```
 
 #### Data types
-There is only 2 primitive data types, strings and numbers. In C's point of view,
+There are only 2 primitive data types, strings and numbers. In C's point of view,
 Strings are pointers point to the original text (no malloc!), while numbers are
-double. 
+`double`. 
 
-For arrays, it is same as C's array, in which the elements must have the same
+For arrays, they are same as C's array, in which the elements must have the same
 type. In the example, we see there are some arrays prefixed with some text, in
-this case, `Vector2`.
+this case, `Vector3`.
 
 ```
 position = Vector3 200, 200, 200
 ```
 
-`Vector2` is a hint given to the C programmers so they decides how to interpret
+`Vector3` is a hint given to the C programmers to decide how to interpret
 the array. So here it is telling the C programmers to preceive it as a
-`Vector3`, which should have `x`, `y` and `z` component. With the programmers
-interpretation instead of an array, it can be like this:
+`Vector3`, which should have `x`, `y` and `z` component. With the 
+interpretation, instead of a normal array, it is like this:
 
 ```json
 {
