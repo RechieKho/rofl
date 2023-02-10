@@ -1,0 +1,28 @@
+[
+ {
+  "directory": "/data/data/com.termux/files/home/Docs/c_projects/rofl",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-c",
+   "/data/data/com.termux/files/home/Docs/c_projects/rofl/rofl/rofl.c",
+   "-o",
+   "/data/data/com.termux/files/home/Docs/c_projects/rofl/gen/_ROFL_rofl.o",
+   "-I/data/data/com.termux/files/home/Docs/c_projects/rofl/rofl"
+  ],
+  "file": "/data/data/com.termux/files/home/Docs/c_projects/rofl/rofl/rofl.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/Docs/c_projects/rofl",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-c",
+   "/data/data/com.termux/files/home/Docs/c_projects/rofl/test/main.c",
+   "-o",
+   "/data/data/com.termux/files/home/Docs/c_projects/rofl/gen/_TEST_main.o",
+   "-I/data/data/com.termux/files/home/Docs/c_projects/rofl/rofl"
+  ],
+  "file": "/data/data/com.termux/files/home/Docs/c_projects/rofl/test/main.c"
+ }
+]
