@@ -2,8 +2,8 @@
 
 Richie's Obvious Figure Language, or ROFL is another simple language for
 configurations in C. TOML, YAML, INI and JSON did a great job but I want 
-a language that serialize and deserialize data with only one source (`.c`) file and
-one header (`.h`) file  for complex data structures with 0 memory
+a language that serialize and deserialize complex data structure with 
+only one source (`.c`) file and one header (`.h`) file and *NO* memory
 allocation.
 
 ### Specification
@@ -29,7 +29,7 @@ If roughly translated to JSON, it would be like this:
         "number": 1, 
         "string": "Hello world",
         "array": [1, 2, 3]
-        "array_to_convert_to_color" [128, 128, 128],
+        "array_to_convert_to_color": [128, 128, 128],
         "Nested Object": {
             "position": [200, 200, 200]
         }
