@@ -1,10 +1,22 @@
-# Richie's Obvious Figure Language
-
-Richie's Obvious Figure Language, or ROFL is another simple language for
+# Richie's Obviously Fantastic Language
+Richie's Obviously Fantastic Language, or ROFL is another simple language for
 configurations in C. TOML, YAML, INI and JSON did a great job but I want 
 a language that serialize and deserialize complex data structure with 
-only one source (`.c`) file and one header (`.h`) file and *NO* memory
-allocation.
+only one source (`.c`) file and one header (`.h`) file. All the strings are 
+pointer points to the original text, leading to 0 memory allocation.
+
+### Using ROFL parser
+To use it, just copy `rofl.c` and `rofl.h` into your project. 
+Write a callback function that handles the members. 
+Do note that the callback is called for each members.
+Call `parse_rofl` on the text you want to parse.
+Error logging can be turn on or off when calling.
+Handle error if `parse_rofl` returns error.
+
+### Features
+- *No* memory allocation.
+- One source file and one header file.
+- *420* lines in `rofl.c`. (including comments)
 
 ### Specification
 #### Examples
@@ -14,11 +26,11 @@ Here is an example of data written in ROFL.
 # Object
 number = 1
 string = "Hello world"
-array = 1, 2, 3
-array_to_convert_to_color = Color 128, 128, 128
+array = 1 2 3
+array_to_convert_to_color : Color = 128 128 128
 
-    # Nested Object
-    position = Vector3 200, 200, 200
+    # NestedObject
+    position : Vector3 = 200 200 200
 ```
 
 If roughly translated to JSON, it would be like this:
@@ -30,7 +42,7 @@ If roughly translated to JSON, it would be like this:
         "string": "Hello world",
         "array": [1, 2, 3]
         "array_to_convert_to_color": [128, 128, 128],
-        "Nested Object": {
+        "NestedObject": {
             "position": [200, 200, 200]
         }
     }
@@ -43,11 +55,11 @@ Strings are pointers point to the original text (no malloc!), while numbers are
 `double`. 
 
 For arrays, they are same as C's array, in which the elements must have the same
-type. In the example, we see there are some arrays prefixed with some text, in
-this case, `Vector3`.
+type.
 
+Moreover, you can add type hint to the member using colon `:`.
 ```
-position = Vector3 200, 200, 200
+position : Vector3 = 200, 200, 200
 ```
 
 `Vector3` is a hint given to the C programmers to decide how to interpret
@@ -64,5 +76,7 @@ interpretation, instead of a normal array, it is like this:
     }
 }
 ```
+
+Name of objects and key of members *should be in one word*.
 
 `#` starts an object. Indentation means nesting. Don't mix tab and spaces.

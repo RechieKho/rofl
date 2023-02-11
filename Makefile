@@ -3,7 +3,7 @@ CC?=gcc
 COMPILEDB?=compiledb
 
 # Flags.
-CFLAGS+=-Wall
+CFLAGS+=-Wall -O0 -g
 
 # Define directories.
 PWD:=$(shell pwd)
@@ -11,6 +11,9 @@ GEN_DIR:=$(PWD)/gen
 ROFL_DIR:=$(PWD)/rofl
 TEST_DIR:=$(PWD)/test
 INC_DIRS:=$(ROFL_DIR)
+
+# Define libraries.
+SHARED_LIBS:=
 
 # Define tool files.
 TEST_HEADERS:=$(wildcard $(TEST_DIR)/*.h)
@@ -45,7 +48,7 @@ clean:
 # Targets.
 # Executables
 $(TEST_OUT): $(TEST_OBJS) $(ROFL_OBJS)
-	$(CC) $(CFLAGS) $^ -o $@ $(INC_DIRS:%=-I%)
+	$(CC) $(CFLAGS) $^ -o $@ $(INC_DIRS:%=-I%) $(SHARED_LIBS:%=-l%)
 
 # Object files.
 $(GEN_DIR)/_TEST_%.o: $(TEST_DIR)/%.c $(TEST_HEADERS)
