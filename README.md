@@ -1,9 +1,12 @@
 # Richie's Obviously Fantastic Language
 Richie's Obviously Fantastic Language, or ROFL is another simple language for
 configurations in C. TOML, YAML, INI and JSON did a great job but I want 
-a language that serialize and deserialize complex data structure with 
-only one source (`.c`) file and one header (`.h`) file. All the strings are 
-pointer points to the original text, leading to 0 memory allocation.
+a a dead simple configuration language that parses with one small source (`.c`) file 
+and one header (`.h`) file and 0 memory allocation.
+
+### Features
+- *No* memory allocation.
+- One small (420 lines including comments)  source file and one header file.
 
 ### Using ROFL parser
 To use it, just copy `rofl.c` and `rofl.h` into your project. 
@@ -12,11 +15,6 @@ Do note that the callback is called for each members.
 Call `parse_rofl` on the text you want to parse.
 Error logging can be turn on or off when calling.
 Handle error if `parse_rofl` returns error.
-
-### Features
-- *No* memory allocation.
-- One source file and one header file.
-- *420* lines in `rofl.c`. (including comments)
 
 ### Specification
 #### Examples
