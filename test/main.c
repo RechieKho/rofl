@@ -18,7 +18,7 @@ static void print_slice(struct rofl_slice p_slice) {
     }
 }
 
-static enum rofl_error callback(
+static struct rofl_result callback(
         const struct rofl_slice* p_object,
         unsigned int p_nesting_count,
         struct rofl_slice p_member_name, 
@@ -54,7 +54,7 @@ static enum rofl_error callback(
     }
 
     fputs("\n\n", stdout);
-    return ROFL_OK;
+    return ROFL_RESULT_OK;
 }
 
 int main() {

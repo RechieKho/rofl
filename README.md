@@ -6,7 +6,7 @@ and one header (`.h`) file and 0 memory allocation.
 
 ### Features
 - *No* memory allocation.
-- One small (420 lines including comments)  source file and one header file.
+- One small (~400 lines including comments)  source file and one header file.
 
 ### Using ROFL parser
 To use it, just copy `rofl.c` and `rofl.h` into your project. 

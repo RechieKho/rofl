@@ -80,7 +80,7 @@ enum rofl_error parse_rofl(
     } \
     switch (mode) { \
         case READ_VALUE: { \
-            enum rofl_error error = p_callback( \
+            struct rofl_result result = p_callback( \
                 object.names, \
                 object.nest_count, \
                 member.name.slice, \
@@ -90,18 +90,10 @@ enum rofl_error parse_rofl(
                 member.values.string_value_pool.values, \
                 member.values.string_value_pool.count \
             ); \
-            switch(error) { \
-                case ROFL_ERROR_INTERNAL: \
-                    PRINT_ERROR("Internal error."); \
-                    return error; \
-                case ROFL_ERROR_UNEXPECTED_MEMBER: \
-                    PRINT_ERROR("Unexpected member."); \
-                    return error; \
-                case ROFL_ERROR_UNEXPECTED_VALUE: \
-                    PRINT_ERROR("Unexpected value."); \
-                    return error; \
-                default:; \
-            } \
+            if(result.error != ROFL_ERROR_OK) { \
+                PRINT_RESULT_ERROR(result); \
+                return result.error; \
+            }\
             break;  \
          } \
         case READ_OBJECT: \
@@ -136,6 +128,9 @@ enum rofl_error parse_rofl(
     if(!p_quiet) printf("ROFL Error: " mp_message \
             " [row %u, col %u]\n", row, \
             col); \
+}
+#define PRINT_RESULT_ERROR(mp_result) {\
+    if(!p_quiet) printf("ROFL Error: %s [row %u, col %u]\n", (mp_result).message, row, col); \
 }
 #define NEXT_CHAR() { \
     c = *++p_string; \
@@ -412,9 +407,10 @@ enum rofl_error parse_rofl(
     // End local macros.
 #undef FINISH_LINE
 #undef PRINT_ERROR
+#undef PRINT_RESULT_ERROR
 #undef REGISTER_VALUE
 #undef NEXT_CHAR
 #undef TARGET_OBJECT 
 
-    return  ROFL_OK;
+    return  ROFL_ERROR_OK;
 }
