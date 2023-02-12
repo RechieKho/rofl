@@ -3,14 +3,16 @@
 
 // Test data.
 static const char* data = 
+    "; This is a comment.\n"
     "# Object\n"
-    "number = 1\n"
+    "number = 1 ; This comment is behind a member.\n"
     "string = 'Hello world'\n"
     "array = 1 2 3\n"
     "array_to_convert_to_color : Color = 128 128 128\n"
     "    \n"
     "  # NestedObject\n"
-    "  position : Vector3 = 200 200 200\n" ;
+    "  position : Vector3 = 200 200 200\n" 
+    "; This is a comment at the end of the text.";
 
 static void print_slice(struct rofl_slice p_slice) {
     for(unsigned int i = 0; i < p_slice.length; i ++) {

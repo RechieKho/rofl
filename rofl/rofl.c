@@ -8,6 +8,7 @@
 #define HINT_CHAR ':'
 #define ASSIGN_CHAR '='
 #define OBJECT_CHAR '#'
+#define COMMENT_CHAR ';'
 #define STRLIT_ESC_CHAR '\\'
 #define MAX_OBJ_NESTING 100
 #define MAX_ARRAY_LENGTH 100
@@ -74,7 +75,7 @@ enum rofl_error parse_rofl(
     // Local macros.
 #define TARGET_OBJECT object.names[object.nest_count]
 #define FINISH_LINE() { \
-    if(strlit_char) { \
+    if(strlit_char != '\0') { \
         PRINT_ERROR("Unterminated string literal."); \
         return ROFL_ERROR_SYNTAX; \
     } \
@@ -110,6 +111,8 @@ enum rofl_error parse_rofl(
             PRINT_ERROR("Member without value is forbidden."); \
             return ROFL_ERROR_SYNTAX; \
     } \
+}
+#define SETUP_NEXT_LINE() { \
     indent.previous = indent.current; \
     indent.current = 0; \
     mode = READ_INDENT; \
@@ -123,6 +126,7 @@ enum rofl_error parse_rofl(
     row++; \
     col = 1; \
     c = *++p_string; \
+    continue; \
 }
 #define PRINT_ERROR(mp_message) { \
     if(!p_quiet) printf("ROFL Error: " mp_message \
@@ -141,10 +145,22 @@ enum rofl_error parse_rofl(
 
     // Loop through the texts.
     while(c) {
-        // Meet new line.
-        if(c == '\n') {
+        // Meet comment.
+        if(c == COMMENT_CHAR && strlit_char == '\0') {
+            // Skip to new line.
+            p_string = strchr(p_string, '\n');
+            
+            // Stop the text if there is no new line character.
+            // In other word, the text has reached the end.
+            if(p_string == NULL) break;
+
             FINISH_LINE();
-            continue;
+            SETUP_NEXT_LINE();
+        }
+        // Meet new line.
+        else if(c == '\n') {
+            FINISH_LINE();
+            SETUP_NEXT_LINE();
         }
         // Expecting indentation.
         else if(mode == READ_INDENT) {
@@ -406,6 +422,7 @@ enum rofl_error parse_rofl(
 
     // End local macros.
 #undef FINISH_LINE
+#undef SETUP_NEXT_LINE
 #undef PRINT_ERROR
 #undef PRINT_RESULT_ERROR
 #undef REGISTER_VALUE

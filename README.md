@@ -21,8 +21,9 @@ Handle error if `parse_rofl` returns error.
 Here is an example of data written in ROFL.
 
 ```
+; This is a comment.
 # Object
-number = 1
+number = 1 ; This is a comment at the back of a member.
 string = "Hello world"
 array = 1 2 3
 array_to_convert_to_color : Color = 128 128 128
@@ -78,3 +79,5 @@ interpretation, instead of a normal array, it is like this:
 Name of objects and key of members *should be in one word*.
 
 `#` starts an object. Indentation means nesting. Don't mix tab and spaces.
+
+`;` starts a comment, any text behind it is ignored.
